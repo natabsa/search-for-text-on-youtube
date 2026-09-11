@@ -18,15 +18,17 @@ function searchOnYoutube(info, tab) {
   }
 }
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
-    id: "search-youtube",
-    title: "Search in YouTube for '%s'",
-    contexts: ["selection"],
-    icons: {
-      "32": "icon.png"
-    }
-  });
+chrome.contextMenus.create({
+  id: "search-youtube",
+  title: "Search in YouTube for '%s'",
+  contexts: ["selection"],
+  icons: {
+    "32": "icon.png"
+  }
+}, () => {
+  if (chrome.runtime.lastError) {
+    // Safely ignore duplicate ID errors during extension reloads
+  }
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
